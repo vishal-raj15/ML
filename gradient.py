@@ -25,3 +25,15 @@ for i in range(len(x)):
     plt.scatter(x,y)
     plt.plot(x1,y1)
     plt.show()
+
+
+# error = 1/n((sum)(y-(mx + b))**2)
+
+# de/dm = (2/n)*x(y-y')
+# 
+# eg .training over 10000 iteration
+# m = m - learning_rate *de/dm
+# b = b- learning_rate * de/db
+# 
+#  After each iteration we get minimum cost with keepin glow learning rate
+# otherwise it may deflect from global minima  
