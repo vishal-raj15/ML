@@ -2,6 +2,7 @@
 from sklearn.datasets import load_digits
 import matplotlib.pyplot as plt
 import numpy as np
+import random
 
 digits = load_digits()
 
@@ -16,13 +17,16 @@ model.fit(X_train, y_train)
 
 a = model.score(X_test, y_test)
 
-y_predicted = model.predict([digits.data[340]])
+rno = random.randint(1,1797)
+
+y_predicted = model.predict([digits.data[rno]])
 
 
 print("predicted ",y_predicted)
 print('\n')
-print(" real data ",digits.target[340])
+print(" real data ",digits.target[rno])
 plt.gray()
-plt.matshow(digits.images[340])
+plt.matshow(digits.images[rno])
 plt.show()
 
+#  @ https://github.com/codebasics
