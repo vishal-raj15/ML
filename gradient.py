@@ -36,4 +36,5 @@ for i in range(len(x)):
 # b = b- learning_rate * de/db
 # 
 #  After each iteration we get minimum cost with keepin glow learning rate
-# otherwise it may deflect from global minima  
+# otherwise it may deflect from global minima 
+# it is backpropogation where each weight and bias is getting updated every time
