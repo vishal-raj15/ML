@@ -58,5 +58,5 @@ tuner_search = RandomSearch(build_model,objective='val_accuracy',max_trials=5,di
 tuner_search.search(train_images,train_labels,epochs=3,validation_split=0.1)
 
 model = tuner_search.get_best_models(num_models=1)[0]
-model.fit(train_images,train_labels,epochs=10,validation_spilt=0.1,initial_epoch=3)
+model.fit(train_images,train_labels,epochs=10,validation_split=0.1,initial_epoch=3)
 
