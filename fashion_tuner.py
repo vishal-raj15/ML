@@ -3,9 +3,10 @@ import matplotlib.pyplot as plt
 import tensorflow as tf 
 from tensorflow import keras
 import numpy as np 
+from tensorflow.keras import layers
 from kerastuner import HyperModel
 from kerastuner.tuners import RandomSearch, Hyperband, BayesianOptimization
-from kerastuner.engine.hyperparameters import hyperparameters
+from kerastuner.engine.hyperparameters import HyperParameters
 
 
 data = keras.datasets.fashion_mnist
@@ -26,14 +27,14 @@ def build_model(hp):
     model = keras.Sequential([
         keras.layers.Conv2D(
             filters = hp.Int('conv_1_filter' ,min_value=32 , max_value = 128,step=16),
-            kernal_size = hp.Choice('conv_1_kernal',values = [3,5]),
+            kernel_size = hp.Choice('conv_1_kernal',values = [3,5]),
             activation = 'relu',
             input_shape = (28,28,1)
-
+            
         ),
         keras.layers.Conv2D(
-            filters = hp.Int('conv_2_filter',,min_value=32 ,man_value=64,step=16),
-            kernal_size =hp.Choice('conv_2_kernal',value=[3,5]),
+            filters = hp.Int('conv_2_filter',min_value=32 ,max_value=64,step=16),
+            kernel_size =hp.Choice('conv_2_kernal',values=[3,5]),
             activation ='relu'
         ),
         keras.layers.Flatten(),
@@ -52,6 +53,10 @@ def build_model(hp):
     return model
 
 
-tuner_search = RandomSearch(build_model,objective='val_accuracy',max_trials=5)
+tuner_search = RandomSearch(build_model,objective='val_accuracy',max_trials=5,directory='output',project_name='mnist_fashion')
 
-    
+tuner_search.search(train_images,train_labels,epochs=3,validation_split=0.1)
+
+model = tuner_search.get_best_models(num_models=1)[0]
+model.fit(train_images,train_labels,epochs=10,validation_spilt=0.1,initial_epoch=3)
+
